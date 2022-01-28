@@ -281,7 +281,7 @@ class QnA extends React.Component {
     //console.log('isSearchTriggered=', isSearchTriggered);
     if (isSearchTriggered === true) {
     //GET LIST OF ALL QUESTIONS BY PRODUCT ID
-      var url = 'http://localhost:3000/qna/getQuestionsList';
+      var url = '/qna/getQuestionsList';
       axios.get(url, {params: {id: productId}})
         .then((response) => {
           query = query.toLowerCase();

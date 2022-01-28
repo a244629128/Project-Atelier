@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TopSearchBar from './components/TopSearchBar/TopSearchBar.jsx';
 import SiteWideMessage from './components/SiteWideMessage/SiteWideMessage.jsx';
 import ProductOverviewWithClickData from './components/ProdOverview/OverView.jsx';
-import RelProductsWithClickData from './components/RelProductsComponents/RelProducts.jsx';
+// import RelProductsWithClickData from './components/RelProductsComponents/RelProducts.jsx';
 import QnAwithClickData from './components/QnAcomponents/mainQnA.jsx';
 import RatingsNReviews from './components/RatingsNReviews/RatingsNReviews.jsx';
 import axios from 'axios';
@@ -52,18 +52,19 @@ class App extends React.Component {
   }
 
   async updateProduct(productId) {
-    const [productInfo, productStyleInfo, relProductInfo, questionsList] = await Promise.all([
+    // relProductInfo
+    const [productInfo, productStyleInfo, questionsList] = await Promise.all([
       getProductInfo(productId),
       getStyleInfo(productId),
-      getRelatedProductInfo(productId),
       getQuestionsListInfo(productId),
+      // getRelatedProductInfo(productId),
     ]);
 
     this.setState({
       productId: productId,
       currentProduct: productInfo,
       currentProductStyle: productStyleInfo,
-      relatedProducts: relProductInfo,
+      // relatedProducts: relProductInfo,
       questionsNAnswers: questionsList,
       outFitStyleId: productInfo.results[0].style_id,
     });
@@ -100,7 +101,6 @@ class App extends React.Component {
 
   removeOutfit(id) {
     var currentOutfitIndex = this.state.favoriteOutfits.indexOf(id);
-
     for (var i = 0; i < this.state.favoriteOutfits.length; i++) {
       if (this.state.favoriteOutfits[i] === id) {
         var newFavOutfits = this.state.favoriteOutfits;
@@ -116,12 +116,11 @@ class App extends React.Component {
     const {
       currentProduct,
       currentProductStyle,
-      relatedProducts,
+      // relatedProducts,
       questionsNAnswers,
     } = this.state;
-
-    if (currentProduct === null || currentProductStyle === null || relatedProducts === null ||
-      questionsNAnswers === null) {
+    //relatedProducts === null ||
+    if (currentProduct === null || currentProductStyle === null || questionsNAnswers === null) {
       return null;
     } else {
       return (
@@ -132,10 +131,10 @@ class App extends React.Component {
             currentProductStyle={this.state.currentProductStyle} currentRatings={this.state.averageRate}
             addToOutfit={this.addToOutfit.bind(this)} toggleFavorite={this.toggleAddToFavorite.bind(this)}
             addToFavorites={this.state.favoriteOutfits} currentStyleId={this.state.outFitStyleId} totalReviews={this.state.totalReviews} />
-          <RelProductsWithClickData productId={this.state.productId} currentProduct={this.state.currentProduct} relatedProducts={this.state.relatedProducts}
+          {/* <RelProductsWithClickData productId={this.state.productId} currentProduct={this.state.currentProduct} relatedProducts={this.state.relatedProducts}
             currentStyleId={this.state.outFitStyleId}
             handleClick={this.updateProduct} addOutfit={this.addToOutfit} removeOutfit={this.removeOutfit}
-            toggleFavorite={this.toggleAddToFavorite.bind(this)} favorites={this.state.favoriteOutfits} />
+            toggleFavorite={this.toggleAddToFavorite.bind(this)} favorites={this.state.favoriteOutfits} /> */}
           <QnAwithClickData productId={this.state.productId} currentProduct={this.state.currentProduct} questionsList={this.state.questionsNAnswers}/>
           <RatingsNReviews handleAverageRate={this.handleAverageRate} handleReviews={this.handleReviews} productId={this.state.productId} currentProduct={this.state.currentProduct} />
         </div>
